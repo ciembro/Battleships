@@ -1,15 +1,41 @@
 package com.kodilla.battleships;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 
 public class PlayerBoard extends Board{
 
     public PlayerBoard(){
         super();
-        grid.setStyle("-fx-background-color: #229dc1; -fx-border-color: #000000;");
+        grid.setStyle("-fx-background-color: #13acd6; -fx-border-color: #000000;");
         grid.setGridLinesVisible(true);
+
+        for (Ship ship : shipList){
+            for (Coordinates c : ship.getShipCoordinatesList()){
+                Rectangle rectangle = new Rectangle(35,35, Color.BLACK);
+                grid.add(rectangle, c.getX(), c.getY());
+            }
+        }
     }
 
 
+    @Override
+    public void shoot() {
+
+    }
+
+//    public Node findButton(int x, int y){
+//        Node result = null;
+//        ObservableList<Node> children = grid.getChildren();
+//        for(Node node : children) {
+//            if(GridPane.getRowIndex(node) == y && GridPane.getColumnIndex(node) == x) {
+//                result = node;
+//                break;
+//            }
+//        }
+//        return result;
+//    }
+
 }
+

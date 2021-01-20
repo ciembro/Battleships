@@ -2,16 +2,20 @@ package com.kodilla.battleships;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 
 public class InstructionBox {
@@ -22,7 +26,6 @@ public class InstructionBox {
         textBox.setSpacing(15);
         setLabel();
         setText();
-        createStartNewGameButton();
     }
 
     public VBox getTextBox() {
@@ -44,22 +47,5 @@ public class InstructionBox {
         rulesLabel.setFont(font);
         rulesLabel.setAlignment(Pos.CENTER);
         textBox.getChildren().add(rulesLabel);
-    }
-
-    public void createStartNewGameButton(){
-        Button startNewGameButton = new Button("Start new game");
-        startNewGameButton.setFont(font);
-        Image startNewGameImage = new Image("file:src\\main\\resources\\ship.png");
-
-        startNewGameButton.setGraphic(new ImageView(startNewGameImage));
-        startNewGameButton.setMinSize(275, 100);
-        startNewGameButton.setMaxSize(275, 100);
-        startNewGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                ///
-            }
-        });
-        textBox.getChildren().add(startNewGameButton);
     }
 }

@@ -6,15 +6,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 
 public abstract class Board {
-    protected Map<Coordinates, Boolean> isShot = new HashMap<>();
+    protected Set<Coordinates> isShot = new HashSet<>();
     protected List<Ship> shipList;
     protected GridPane grid = new GridPane();
+
 
     public Board(){
         ColumnConstraints[] columnConstraints = createColumns(10);
@@ -23,11 +23,6 @@ public abstract class Board {
         RowConstraints[] rowConstraints = createRows(10);
         grid.getRowConstraints().addAll(rowConstraints);
 
-        for (int x = 0; x < 10; x++){
-            for (int y = 0; y < 10; y++){
-                isShot.put(new Coordinates(x,y), false);
-            }
-        }
         ShipLocator shipLocator = new ShipLocator();
         shipLocator.placeShipsOnBoard();
         this.shipList = shipLocator.getShipList();
@@ -58,5 +53,17 @@ public abstract class Board {
 
     public GridPane getGrid() {
         return grid;
+    }
+
+    public Set<Coordinates> getIsShot() {
+        return isShot;
+    }
+
+    public void addShotCoordinates(Coordinates coordinates){
+        isShot.add(coordinates);
+    }
+
+    public List<Ship> getShipList() {
+        return shipList;
     }
 }

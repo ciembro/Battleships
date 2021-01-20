@@ -4,9 +4,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class PlayerBoard extends Board{
+public class HumanBoard extends Board{
 
-    public PlayerBoard(){
+
+    public HumanBoard(){
         super();
         grid.setStyle("-fx-background-color: #13acd6; -fx-border-color: #000000;");
         grid.setGridLinesVisible(true);

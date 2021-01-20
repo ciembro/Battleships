@@ -3,25 +3,43 @@ package com.kodilla.battleships;
 import java.util.*;
 
 public class ShipLocator {
-    private Set<Coordinates> setOfTakenPositions = new HashSet<>();
-    private List<Ship> shipList = new ArrayList<>();
+    private Set<Coordinates> setOfTakenPositions;
+    private List<Ship> shipList;
 
-    public void placeShipsOnBoard(){
+    public void placeShipsOnBoard() {
+        placeShips();
+        boolean isOk;
+        do {
+            isOk = placeShips();
+        }while (!isOk);
+    }
+
+    private boolean placeShips(){
+        setOfTakenPositions = new HashSet<>();
+        shipList = new ArrayList<>();
         List<Integer> shipSizes = new ArrayList<>();
+        shipSizes.add(4);
+        shipSizes.add(3);
+        shipSizes.add(3);
         shipSizes.add(2);
         shipSizes.add(2);
         shipSizes.add(2);
         shipSizes.add(1);
         shipSizes.add(1);
-        for (Integer size : shipSizes){
+        for (Integer size : shipSizes) {
             Ship ship = new Ship(size);
             do {
                 ship.placeShip();
             } while (!checkIfPositionAvailable(ship.getShipCoordinatesList()));
             shipList.add(ship);
             updateAvailability(ship);
+            if (shipList.size() <= shipSizes.size() && setOfTakenPositions.size() > 85){
+                return false;
+            }
         }
+        return true;
     }
+
 
     private void updateAvailability(Ship ship){
         int xInit, yInit;

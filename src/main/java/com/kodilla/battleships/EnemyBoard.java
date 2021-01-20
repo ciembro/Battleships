@@ -35,13 +35,6 @@ public class EnemyBoard extends Board{
         }
     }
 
-    @Override
-    public void shoot() {  //TODO
-
-    }
-
-
-
 //    void aiTurn(GridPane playerBoard) {
 //        Random random = new Random();
 //        Rectangle rectangle = new Rectangle(35, 35, Color.BLACK);

@@ -20,10 +20,6 @@ public class PlayerBoard extends Board{
     }
 
 
-    @Override
-    public void shoot() {
-
-    }
 
 //    public Node findButton(int x, int y){
 //        Node result = null;

@@ -5,10 +5,10 @@ import javafx.scene.layout.*;
 public class Game {
 
     private MainGridPane mainGrid;
-    private HumanPlayer humanPlayer;
-    private HumanBoard humanBoard;
-    private AiPlayer aiPlayer;
-    private AiBoard aiBoard;
+    private final HumanPlayer humanPlayer;
+    private final HumanBoard humanBoard;
+    private final AiPlayer aiPlayer;
+    private final AiBoard aiBoard;
 
     public Game(){
         humanPlayer = new HumanPlayer();
@@ -16,6 +16,7 @@ public class Game {
         aiPlayer = new AiPlayer();
         aiBoard = new AiBoard();
         setMainGridPane();
+        humanPlayer.shoot(aiBoard);
     }
 
     private void setMainGridPane(){
@@ -27,27 +28,15 @@ public class Game {
         mainGrid.getGridPane().add(aiBoard.getGrid(), 2, 1);
     }
 
+    public boolean aiShoot(){
+        boolean shipWasShot = aiPlayer.shoot(humanBoard);
+        aiPlayer.checkIfPlayerWon(humanBoard);
+        return shipWasShot;
+    }
 
     public GridPane getMainGrid() {
+
         return mainGrid.getGridPane();
     }
-
-    public HumanPlayer getHumanPlayer() {
-        return humanPlayer;
-    }
-
-    public HumanBoard getHumanBoard() {
-        return humanBoard;
-    }
-
-    public AiPlayer getAiPlayer() {
-        return aiPlayer;
-    }
-
-    public AiBoard getAiBoard() {
-        return aiBoard;
-    }
-
-
 
 }

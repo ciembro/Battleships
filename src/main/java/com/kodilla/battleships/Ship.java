@@ -42,14 +42,20 @@ public class Ship {
                 shipState.put(new Coordinates(xInit, yInit + i), true);
             }
         }
-
-
     }
 
     private void printShipState(){
         for (Map.Entry<Coordinates, Boolean> entry : shipState.entrySet()){
             System.out.print(entry.getKey());
         }
+    }
+
+    public void updateShipState(Coordinates shotCoordinates){
+        shipState.replace(shotCoordinates, false);   // = this place is shot
+    }
+
+    public boolean checkIfShipIsSunk(){
+        return shipState.containsValue(true);
     }
 
     public int getSize() {
@@ -67,18 +73,8 @@ public class Ship {
     }
 
     public Coordinates getInitCoordinates() {
+
         return initCoordinates;
     }
 
-    public static void main(String[] args) {
-
-        for (int i = 0; i < 10 ; i++) {
-            Ship ship = new Ship(1);
-            ship.placeShip();
-            ship.printShipState();
-            ship.placeShip();
-            ship.printShipState();
-            System.out.println();
-        }
-    }
 }

@@ -4,14 +4,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
+import java.util.function.BinaryOperator;
 
 public class AiPlayer extends Player {
 
-    Board humanBoard = new HumanBoard();
-
-
     @Override
-    public void shoot() {  //set isShot, shipList
+    public boolean shoot(Board board) {  //set isShot, shipList
         Random random = new Random();
         int x, y;
         Coordinates shotCoordinates;
@@ -21,25 +19,31 @@ public class AiPlayer extends Player {
             x = random.nextInt(10);
             y = random.nextInt(10);
             shotCoordinates = new Coordinates(x, y);
-        } while (!humanBoard.isShot.contains(shotCoordinates));
+        } while (board.isShot.contains(shotCoordinates));
 
         //sprawdzic czy jest tam statek
-        Ship ship = checkIfShipIsThere(shotCoordinates);
+        Ship ship = checkIfShipIsThere(board, shotCoordinates);
         Rectangle rectangle;
         if (ship == null){
-            rectangle = new Rectangle(35,35, Color.BLUE);
-        } else {
             rectangle = new Rectangle(35,35, Color.DARKGRAY);
+        } else {
+            rectangle = new Rectangle(35,35, Color.RED);
         }
-        humanBoard.addShotCoordinates(shotCoordinates);
-        humanBoard.getGrid().add(rectangle, shotCoordinates.getX(), shotCoordinates.getY());
+        board.addShotCoordinates(shotCoordinates);
+//        System.out.println(shotCoordinates);
+        board.getGrid().add(rectangle, shotCoordinates.getX(), shotCoordinates.getY());
 
         //zaktualizowac stan statku
+        if (ship != null){
+            ship.updateShipState(shotCoordinates);
+        }
 
+
+       return ship == null;
     }
 
-        private Ship checkIfShipIsThere( Coordinates c){
-            for (Ship ship : humanBoard.getShipList()){
+        private Ship checkIfShipIsThere(Board board, Coordinates c){
+            for (Ship ship : board.getShipList()){
                 if (ship.getShipCoordinatesList().contains(c)){
                     return ship;
                 }

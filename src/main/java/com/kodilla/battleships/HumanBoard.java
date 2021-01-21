@@ -12,6 +12,7 @@ public class HumanBoard extends Board{
         grid.setStyle("-fx-background-color: #13acd6; -fx-border-color: #000000;");
         grid.setGridLinesVisible(true);
 
+        //placing ships on board
         for (Ship ship : shipList){
             for (Coordinates c : ship.getShipCoordinatesList()){
                 Rectangle rectangle = new Rectangle(35,35, Color.BLACK);

@@ -26,6 +26,8 @@ public class ShipLocator {
         shipSizes.add(2);
         shipSizes.add(1);
         shipSizes.add(1);
+        shipSizes.add(1);
+        shipSizes.add(1);
         for (Integer size : shipSizes) {
             Ship ship = new Ship(size);
             do {

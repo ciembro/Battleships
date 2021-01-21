@@ -74,18 +74,29 @@ public class BattleshipsRunner extends Application {
         return windowGrid;
     }
 
+    private Button createEnemyTurnButton(){
+        Button enemyMove = new Button("Start enemy's turn");
+        enemyMove.setFont(new Font("Arial", 24));
+        enemyMove.setMinSize(300, 100);
+        enemyMove.setMaxSize(300, 100);
+        Image shootImage = new Image("file:src\\main\\resources\\shoot.png");
+
+        enemyMove.setGraphic(new ImageView(shootImage));
+
+        return enemyMove;
+    }
+
     void cleanup() {
-        // stop animations reset model ect.
+
 
     }
 
     void startGame(Stage primaryStage) {
-        // initialisation from start method goes here
         Game game = new Game();
         Scene scene = new Scene(game.getMainGrid(), 1200, 800);
 
         Button startNewGameButton = createStartNewGameButton();
-        game.getMainGrid().add(startNewGameButton, 0, 3);
+        game.getMainGrid().add(startNewGameButton, 0, 4);
         startNewGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -95,14 +106,27 @@ public class BattleshipsRunner extends Application {
                 newWindow.show();
             }
         });
+
+        Button enemyTurn = createEnemyTurnButton();
+        game.getMainGrid().add(enemyTurn, 0,3);
+        enemyTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                game.aiShoot();
+            }
+        });
+
+
         primaryStage.setTitle("Battleships");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+
+
+
     void restart(Stage stage) {
         cleanup();
-        System.out.println("restart");
         startGame(stage);
     }
 

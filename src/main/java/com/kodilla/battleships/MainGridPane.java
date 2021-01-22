@@ -1,20 +1,17 @@
 package com.kodilla.battleships;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class MainGridPane {
-    private Image mainImage = new Image("file:src\\main\\resources\\blue.jpg");
-    private GridPane mainGridPane;
+    private final Image mainImage = new Image("file:src\\main\\resources\\blue.jpg");
+    private final GridPane mainGridPane;
     InstructionBox instructionBox;
 
     public MainGridPane(){
@@ -28,7 +25,7 @@ public class MainGridPane {
         Background background = new Background(backgroundImage);
         mainGridPane.setBackground(background);
 
-//        mainGridPane.add(new Insets(15, 20, 15, 20));
+        mainGridPane.setPadding(new Insets(20,20,20,20));
         mainGridPane.setVgap(10);
         mainGridPane.setHgap(10);
 
@@ -39,6 +36,30 @@ public class MainGridPane {
 
     public GridPane getGridPane() {
         return mainGridPane;
+    }
+
+    public static void showWinnerScreen(boolean humanWon){
+        Stage winnerWindow = new Stage();
+        GridPane grid = new GridPane();
+        grid.setStyle("-fx-background-color: #13acd6; " +
+                "-fx-border-color: #000000;");
+        Label label = new Label();
+        label.setTextFill(Color.BLACK);
+
+        label.setPadding(new Insets(20,20,20,20));
+        if (humanWon){
+            label.setFont(new Font("Arial", 14));
+            label.setText("GAME OVER\nCongratulations, you win!!!");
+        } else {
+            label.setFont(new Font("Arial", 24));
+            label.setText("GAME OVER\nYou lost ;<");
+        }
+        grid.add(label,0,0);
+        Scene scene = new Scene(grid, 300, 100);
+
+        winnerWindow.setScene(scene);
+        winnerWindow.show();
+
     }
 
 

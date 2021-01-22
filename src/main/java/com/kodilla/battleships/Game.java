@@ -30,7 +30,10 @@ public class Game {
 
     public boolean aiShoot(){
         boolean shipWasShot = aiPlayer.shoot(humanBoard);
-        aiPlayer.checkIfPlayerWon(humanBoard);
+        if (aiPlayer.checkIfPlayerWon(humanBoard)){
+            MainGridPane.showWinnerScreen(false);
+        }
+
         return shipWasShot;
     }
 

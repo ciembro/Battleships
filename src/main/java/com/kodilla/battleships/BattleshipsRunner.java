@@ -88,7 +88,6 @@ public class BattleshipsRunner extends Application {
 
     void cleanup() {
 
-
     }
 
     void startGame(Stage primaryStage) {
@@ -116,13 +115,10 @@ public class BattleshipsRunner extends Application {
             }
         });
 
-
         primaryStage.setTitle("Battleships");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
 
 
     void restart(Stage stage) {

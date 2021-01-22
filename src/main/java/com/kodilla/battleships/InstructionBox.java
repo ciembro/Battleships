@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 
 
 public class InstructionBox {
-    private VBox textBox = new VBox();
-    private Font font = new Font("Arial",24);
+    private final VBox textBox = new VBox();
+    private final Font font = new Font("Arial",20);
 
     public InstructionBox(){
         textBox.setSpacing(15);
@@ -37,14 +37,20 @@ public class InstructionBox {
         rulesText.setFont(font);
         rulesText.setFill(Color.LIGHTBLUE);
         rulesText.setTextAlignment(TextAlignment.JUSTIFY);
-        rulesText.setText(" This is basic rule\n This is basic rule\n This is basic rule\n This is basic rule\n This is basic rule\n");
+        rulesText.setLineSpacing(1.5);
+        rulesText.setText("- try and sink all of the other player's \n  before they sink all of your ships\n" +
+                "- the ships can only be placed vertically \n  or horizontally\n" +
+                "- diagonal placement is not allowed\n" +
+                "- ships may not overlap each other \n  or touch each other\n" +
+                "- no ships may be placed on another ship\n");
         textBox.getChildren().add(rulesText);
     }
 
     private void setLabel(){
-        Label rulesLabel = new Label("Rules");
+        Label rulesLabel = new Label("RULES");
         rulesLabel.setTextFill(Color.LIGHTBLUE);
-        rulesLabel.setFont(font);
+        rulesLabel.setFont(new Font("Arial", 24));
+        rulesLabel.setLabelFor(textBox);
         rulesLabel.setAlignment(Pos.CENTER);
         textBox.getChildren().add(rulesLabel);
     }

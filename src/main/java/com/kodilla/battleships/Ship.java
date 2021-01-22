@@ -6,7 +6,7 @@ public class Ship {
     private final int size;
     private final boolean isHorizontal;
     private Coordinates initCoordinates;
-    private Map<Coordinates, Boolean> shipState = new HashMap<>();
+    private Map<Coordinates, Boolean> mapOfShotCoordinates = new HashMap<>();
     private Random random = new Random();
 
     public Ship(int size){
@@ -31,31 +31,31 @@ public class Ship {
     }
 
     public void placeShip() {
-        shipState.clear();
+        mapOfShotCoordinates.clear();
         initCoordinates = findShipCoordinates();
         int xInit = initCoordinates.getX();
         int yInit = initCoordinates.getY();
         for (int i = 0; i < size; i++) {
             if (isHorizontal) {
-                shipState.put(new Coordinates(xInit + i, yInit), true);
+                mapOfShotCoordinates.put(new Coordinates(xInit + i, yInit), false);
             } else {
-                shipState.put(new Coordinates(xInit, yInit + i), true);
+                mapOfShotCoordinates.put(new Coordinates(xInit, yInit + i), false);
             }
         }
     }
 
     private void printShipState(){
-        for (Map.Entry<Coordinates, Boolean> entry : shipState.entrySet()){
+        for (Map.Entry<Coordinates, Boolean> entry : mapOfShotCoordinates.entrySet()){
             System.out.print(entry.getKey());
         }
     }
 
     public void updateShipState(Coordinates shotCoordinates){
-        shipState.replace(shotCoordinates, false);   // = this place is shot
+        mapOfShotCoordinates.replace(shotCoordinates, true);   // = this place is shot
     }
 
     public boolean checkIfShipIsSunk(){
-        return shipState.containsValue(true);
+        return !mapOfShotCoordinates.containsValue(false);
     }
 
     public int getSize() {
@@ -68,8 +68,7 @@ public class Ship {
 
 
     public List<Coordinates> getShipCoordinatesList(){
-
-        return new ArrayList<>(shipState.keySet());
+        return new ArrayList<>(mapOfShotCoordinates.keySet());
     }
 
     public Coordinates getInitCoordinates() {

@@ -1,14 +1,8 @@
 package com.kodilla.battleships;
 
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,27 +11,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
-
-
-public class InstructionBox {
-    private final VBox textBox = new VBox();
-    private final Font font = new Font("Arial",20);
+public class InstructionBox{
+    private final VBox instructionBox = new VBox();
+    private final Font font = new Font("Arial",18);
 
     public InstructionBox(){
-        textBox.setSpacing(15);
+        instructionBox.setSpacing(15);
+        instructionBox.setPadding(new Insets(20,20,20,20));
         setLabel();
-        setText();
+        instructionBox.getChildren().add(setText());
+        instructionBox.getChildren().add(printAvailableShips());
+
+
     }
 
-    public VBox getTextBox() {
-        return textBox;
+    public VBox getInstructionBox() {
+        return instructionBox;
     }
 
-    private void setText(){
+    private Text setText(){
         Text rulesText = new Text();
         rulesText.setFont(font);
-        rulesText.setFill(Color.LIGHTBLUE);
+        rulesText.setFill(Color.BLACK);
         rulesText.setTextAlignment(TextAlignment.JUSTIFY);
         rulesText.setLineSpacing(1.5);
         rulesText.setText("- try and sink all of the other player's \n  before they sink all of your ships\n" +
@@ -45,17 +40,50 @@ public class InstructionBox {
                 "- diagonal placement is not allowed\n" +
                 "- ships may not overlap each other \n  or touch each other\n" +
                 "- no ships may be placed on another ship\n");
-        textBox.getChildren().add(rulesText);
+        return rulesText;
+
     }
 
 
 
     private void setLabel(){
         Label rulesLabel = new Label("RULES");
-        rulesLabel.setTextFill(Color.LIGHTBLUE);
+        rulesLabel.setTextFill(Color.BLACK);
         rulesLabel.setFont(new Font("Arial", 24));
-        rulesLabel.setLabelFor(textBox);
+        rulesLabel.setLabelFor(instructionBox);
         rulesLabel.setAlignment(Pos.CENTER);
-        textBox.getChildren().add(rulesLabel);
+        instructionBox.getChildren().add(rulesLabel);
     }
+
+    private VBox printAvailableShips(){
+        Label label = new Label("AVAILABLE FLEET:");
+        label.setTextFill(Color.BLACK);
+        label.setFont(new Font("Arial", 20));
+
+        VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        HBox row1 = new HBox();
+        HBox row2 = new HBox();
+        HBox row3 = new HBox();
+        HBox row4 = new HBox();
+        row1.setSpacing(3);
+        row2.setSpacing(5);
+        row3.setSpacing(3);
+        row4.setSpacing(5);
+        vBox.getChildren().add(label);
+        vBox.getChildren().addAll(row1, row2, row3, row4);
+        row1.getChildren().add(new Rectangle(140,35, Color.BLACK));
+        row2.getChildren().addAll(new Rectangle(105,35, Color.BLACK),
+                new Rectangle(105,35, Color.BLACK));
+        row3.getChildren().addAll(new Rectangle(70,35, Color.BLACK),
+                new Rectangle(70,35, Color.BLACK),
+                new Rectangle(70,35, Color.BLACK));
+        row4.getChildren().addAll(new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK));
+
+        return vBox;
+    }
+
 }

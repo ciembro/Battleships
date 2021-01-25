@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 
 public class BattleshipsRunner extends Application {
 
-    private boolean hasTurn;
-
     public static void main(String[] args) {
 
         launch(args);
@@ -27,18 +25,6 @@ public class BattleshipsRunner extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         startGame(primaryStage);
-    }
-
-    private Button createStartNewGameButton() {
-        Button startNewGameButton = new Button("Start a new game");
-        startNewGameButton.setFont(new Font("Arial", 24));
-        Image startNewGameImage = new Image("file:src\\main\\resources\\ship.png");
-
-        startNewGameButton.setGraphic(new ImageView(startNewGameImage));
-        startNewGameButton.setMinSize(300, 100);
-        startNewGameButton.setMaxSize(300, 100);
-
-        return startNewGameButton;
     }
 
     private GridPane askToStartNewGame(Stage primaryStage, Stage stage) {
@@ -75,24 +61,11 @@ public class BattleshipsRunner extends Application {
         return windowGrid;
     }
 
-    private Button createEnemyTurnButton(){
-        Button enemyMove = new Button("Start enemy's turn");
-        enemyMove.setFont(new Font("Arial", 24));
-        enemyMove.setMinSize(300, 100);
-        enemyMove.setMaxSize(300, 100);
-        Image shootImage = new Image("file:src\\main\\resources\\shoot.png");
-        enemyMove.setGraphic(new ImageView(shootImage));
-
-        return enemyMove;
-    }
-
     void startGame(Stage primaryStage) {
         Game game = new Game();
         Scene scene = new Scene(game.getMainGrid(), 1200, 800);
 
-        Button startNewGameButton = createStartNewGameButton();
-        game.getMainGrid().add(startNewGameButton, 0, 3);
-        startNewGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        game.getMainGridPane().getCreateNewGameButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 Stage newWindow = new Stage();
@@ -101,14 +74,12 @@ public class BattleshipsRunner extends Application {
                 newWindow.show();
             }
         });
-
-        Button enemyTurn = createEnemyTurnButton();
-        game.getMainGrid().add(enemyTurn, 0,2);
-        enemyTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        game.getMainGridPane().getEnemyTurnButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!game.getHumanPlayer().getHasTurn())
+                if (!game.getHumanPlayer().getHasTurn()){
                     game.aiShoot();
+                }
             }
         });
 
@@ -116,7 +87,6 @@ public class BattleshipsRunner extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     void restart(Stage stage) {
         startGame(stage);

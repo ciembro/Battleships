@@ -22,7 +22,7 @@ public class Game {
     private void setMainGridPane(){
         mainGrid = new MainGridPane();
         mainGrid.getGridPane().add(humanBoard.getGrid(), 0, 1);
-        mainGrid.getGridPane().add(aiBoard.getGrid(), 2, 1);
+        mainGrid.getGridPane().add(aiBoard.getGrid(), 0, 3);
     }
 
     public boolean aiShoot(){
@@ -38,6 +38,10 @@ public class Game {
     public GridPane getMainGrid() {
 
         return mainGrid.getGridPane();
+    }
+
+    public MainGridPane getMainGridPane(){
+        return mainGrid;
     }
 
     public HumanPlayer getHumanPlayer() {

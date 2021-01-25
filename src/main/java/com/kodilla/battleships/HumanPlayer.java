@@ -38,8 +38,8 @@ public class HumanPlayer extends Player {
                             MainGridPane.showWinnerScreen(true);
                         }
                         hasTurn = false;
-                    }
 
+                    }
                 }
             });
         }

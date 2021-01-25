@@ -89,18 +89,5 @@ public class ShipLocator {
     }
 
     public static void main(String[] args) {
-
-//        for (int i = 0; i < 10; i++){
-//            ShipLocator shipLocator = new ShipLocator();
-//            shipLocator.placeShipsOnBoard();
-//            for (Ship ship : shipLocator.getShipList()){
-//                for (Coordinates c : ship.getShipCoordinatesList()){
-//                    System.out.print(c);
-//                }
-//                System.out.println();
-//            }
-//            System.out.println("-----------");
-//        }
-
     }
 }

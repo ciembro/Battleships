@@ -13,6 +13,7 @@ public class AiBoard extends Board{
 
     public AiBoard(){
         super();
+        super.putShipsOnBoard();
         grid.setStyle("-fx-background-color: #13acd6;");
 
         for (int x = 0; x < 10; x++) {

@@ -9,6 +9,7 @@ public class HumanBoard extends Board{
 
     public HumanBoard(){
         super();
+        super.putShipsOnBoard();
         grid.setStyle("-fx-background-color: #13acd6; -fx-border-color: #000000;");
         grid.setGridLinesVisible(true);
 

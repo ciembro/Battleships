@@ -12,10 +12,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
+
+
 
 
 public class InstructionBox {
@@ -45,6 +47,8 @@ public class InstructionBox {
                 "- no ships may be placed on another ship\n");
         textBox.getChildren().add(rulesText);
     }
+
+
 
     private void setLabel(){
         Label rulesLabel = new Label("RULES");

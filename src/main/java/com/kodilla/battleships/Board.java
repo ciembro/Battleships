@@ -22,7 +22,9 @@ public abstract class Board {
 
         RowConstraints[] rowConstraints = createRows(10);
         grid.getRowConstraints().addAll(rowConstraints);
+    }
 
+    public void putShipsOnBoard(){
         ShipLocator shipLocator = new ShipLocator();
         shipLocator.placeShipsOnBoard();
         this.shipList = shipLocator.getShipList();

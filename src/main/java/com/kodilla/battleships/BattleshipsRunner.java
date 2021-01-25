@@ -1,5 +1,6 @@
 package com.kodilla.battleships;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 
 public class BattleshipsRunner extends Application {
 
+    private boolean hasTurn;
+
     public static void main(String[] args) {
 
         launch(args);
@@ -25,7 +28,6 @@ public class BattleshipsRunner extends Application {
     public void start(Stage primaryStage) throws Exception {
         startGame(primaryStage);
     }
-
 
     private Button createStartNewGameButton() {
         Button startNewGameButton = new Button("Start a new game");
@@ -38,7 +40,6 @@ public class BattleshipsRunner extends Application {
 
         return startNewGameButton;
     }
-
 
     private GridPane askToStartNewGame(Stage primaryStage, Stage stage) {
         GridPane windowGrid = new GridPane();
@@ -80,14 +81,9 @@ public class BattleshipsRunner extends Application {
         enemyMove.setMinSize(300, 100);
         enemyMove.setMaxSize(300, 100);
         Image shootImage = new Image("file:src\\main\\resources\\shoot.png");
-
         enemyMove.setGraphic(new ImageView(shootImage));
 
         return enemyMove;
-    }
-
-    void cleanup() {
-
     }
 
     void startGame(Stage primaryStage) {
@@ -95,7 +91,7 @@ public class BattleshipsRunner extends Application {
         Scene scene = new Scene(game.getMainGrid(), 1200, 800);
 
         Button startNewGameButton = createStartNewGameButton();
-        game.getMainGrid().add(startNewGameButton, 0, 4);
+        game.getMainGrid().add(startNewGameButton, 0, 3);
         startNewGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -107,11 +103,12 @@ public class BattleshipsRunner extends Application {
         });
 
         Button enemyTurn = createEnemyTurnButton();
-        game.getMainGrid().add(enemyTurn, 0,3);
+        game.getMainGrid().add(enemyTurn, 0,2);
         enemyTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                game.aiShoot();
+                if (!game.getHumanPlayer().getHasTurn())
+                    game.aiShoot();
             }
         });
 
@@ -122,7 +119,6 @@ public class BattleshipsRunner extends Application {
 
 
     void restart(Stage stage) {
-        cleanup();
         startGame(stage);
     }
 

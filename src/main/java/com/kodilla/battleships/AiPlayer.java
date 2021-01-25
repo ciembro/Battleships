@@ -4,12 +4,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
-import java.util.function.BinaryOperator;
 
 public class AiPlayer extends Player {
 
+//    public AiPlayer(){
+//        this.hasTurn = false;
+//    }
+
     @Override
-    public boolean shoot(Board board) {  //set isShot, shipList
+    public boolean shoot(Board board) {
         Random random = new Random();
         int x, y;
         Coordinates shotCoordinates;

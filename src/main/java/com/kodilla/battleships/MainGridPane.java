@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -29,8 +30,22 @@ public class MainGridPane {
         mainGridPane.setVgap(10);
         mainGridPane.setHgap(10);
 
+        Font font = new Font("Arial", 24);
+        Label playerLabel = new Label("YOUR BOARD");
+        Label aiLabel = new Label("ENEMY'S BOARD");
+
+        playerLabel.setFont(font);
+        aiLabel.setFont(font);
+
+        playerLabel.setTextFill(Color.LIGHTBLUE);
+        aiLabel.setTextFill(Color.LIGHTBLUE);
+
+        mainGridPane.add(playerLabel, 0, 0);
+        mainGridPane.add(aiLabel, 2, 0);
+
         instructionBox = new InstructionBox();
         mainGridPane.add(instructionBox.getTextBox(), 3, 1);
+        mainGridPane.add(printAvailableShips(), 3,2);
 
     }
 
@@ -46,7 +61,7 @@ public class MainGridPane {
         Label label = new Label();
         label.setTextFill(Color.BLACK);
 
-        label.setPadding(new Insets(20,20,20,20));
+        label.setPadding(new Insets(20,20,40,20));
         if (humanWon){
             label.setFont(new Font("Arial", 14));
             label.setText("GAME OVER\nCongratulations, you win!!!");
@@ -59,6 +74,39 @@ public class MainGridPane {
 
         winnerWindow.setScene(scene);
         winnerWindow.show();
+
+    }
+
+    private VBox printAvailableShips(){
+        Label label = new Label("AVAILABLE FLEET:");
+        label.setTextFill(Color.LIGHTBLUE);
+        label.setFont(new Font("Arial", 24));
+
+        VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        HBox row1 = new HBox();
+        HBox row2 = new HBox();
+        HBox row3 = new HBox();
+        HBox row4 = new HBox();
+        row1.setSpacing(3);
+        row2.setSpacing(5);
+        row3.setSpacing(3);
+        row4.setSpacing(5);
+        vBox.getChildren().add(label);
+        vBox.getChildren().addAll(row1, row2, row3, row4);
+        row1.getChildren().add(new Rectangle(140,35, Color.BLACK));
+        row2.getChildren().addAll(new Rectangle(105,35, Color.BLACK),
+                new Rectangle(105,35, Color.BLACK));
+        row3.getChildren().addAll(new Rectangle(70,35, Color.BLACK),
+                new Rectangle(70,35, Color.BLACK),
+                new Rectangle(70,35, Color.BLACK));
+        row4.getChildren().addAll(new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK),
+                new Rectangle(35,35, Color.BLACK));
+
+        return vBox;
+
 
     }
 

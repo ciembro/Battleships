@@ -21,10 +21,7 @@ public class Game {
 
     private void setMainGridPane(){
         mainGrid = new MainGridPane();
-        mainGrid.getGridPane().add(humanBoard.setLabel("Your board"), 0, 0);
         mainGrid.getGridPane().add(humanBoard.getGrid(), 0, 1);
-
-        mainGrid.getGridPane().add(aiBoard.setLabel("Enemy's board"), 2, 0);
         mainGrid.getGridPane().add(aiBoard.getGrid(), 2, 1);
     }
 
@@ -33,6 +30,7 @@ public class Game {
         if (aiPlayer.checkIfPlayerWon(humanBoard)){
             MainGridPane.showWinnerScreen(false);
         }
+        humanPlayer.setHasTurn(true);
 
         return shipWasShot;
     }
@@ -42,4 +40,7 @@ public class Game {
         return mainGrid.getGridPane();
     }
 
+    public HumanPlayer getHumanPlayer() {
+        return humanPlayer;
+    }
 }

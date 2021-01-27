@@ -1,9 +1,6 @@
 package com.kodilla.battleships;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-
 import java.util.HashMap;
 import java.util.Map;
 

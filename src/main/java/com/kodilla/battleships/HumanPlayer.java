@@ -27,17 +27,18 @@ public class HumanPlayer extends Player {
                             button.getValue().setStyle("-fx-background-color: #A9A9A9; " +
                                     "-fx-border-color: #000000; -fx-border-width: 1px; " +
                                     "-fx-opacity: 1");
+                            hasTurn = false;
                         } else {
                             button.getValue().setStyle("-fx-background-color: #FF0000; " +
                                     "-fx-border-color: #000000; -fx-border-width: 1px;" +
                                     "-fx-opacity: 1");
                             ship.updateShipState(button.getKey());
+                            hasTurn = true;
                         }
                         button.getValue().setDisable(true);
                         if (checkIfPlayerWon(board)){
                             MainGridPane.showWinnerScreen(true);
                         }
-                        hasTurn = false;
 
                     }
                 }

@@ -14,16 +14,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class MainGridPane {
-    private final Image mainImage = new Image("file:src\\main\\resources\\blue.jpg");
     private final GridPane mainGridPane;
     private Button createNewGameButton;
     private Button enemyTurnButton;
     private Font buttonFont;
-    private Label humanTurnLabel;
-    private Label aiTurnLabel;
     InstructionBox instructionBox;
 
     public MainGridPane(){
+        Image mainImage = new Image("file:src\\main\\resources\\blue.jpg");
         mainGridPane = new GridPane();
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true,
                 true, false);
@@ -52,13 +50,6 @@ public class MainGridPane {
 
         mainGridPane.add(playerLabel, 0, 0);
         mainGridPane.add(aiLabel, 0, 2);
-
-//        VBox turnsBox = new VBox();
-//        turnsBox.setSpacing(15);
-//        createAiTurnLabel();
-//        createHumanTurnLabel();
-//        turnsBox.getChildren().addAll(humanTurnLabel, aiTurnLabel);
-//        mainGridPane.add(turnsBox, 1,1);
         mainGridPane.add(infoHBox(), 1,3);
     }
 
@@ -160,22 +151,6 @@ public class MainGridPane {
         rulesButton.setMaxSize(300, 75);
         return rulesButton;
     }
-
-//    private void createHumanTurnLabel(){
-//        humanTurnLabel = new Label();
-//        humanTurnLabel.setText("Your turn");
-//        humanTurnLabel.setFont(new Font("Arial",24));
-//        humanTurnLabel.setTextFill(Color.LIGHTBLUE);
-//    }
-//
-//
-//    private void createAiTurnLabel(){
-//        aiTurnLabel = new Label();
-//        aiTurnLabel.setText("Enemy's turn");
-//        aiTurnLabel.setFont(new Font("Arial",24));
-//        aiTurnLabel.setTextFill(Color.LIGHTBLUE);
-//    }
-
 
     public Button getCreateNewGameButton() {
         return createNewGameButton;

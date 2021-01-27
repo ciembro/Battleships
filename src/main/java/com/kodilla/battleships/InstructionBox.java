@@ -21,8 +21,6 @@ public class InstructionBox{
         setLabel();
         instructionBox.getChildren().add(setText());
         instructionBox.getChildren().add(printAvailableShips());
-
-
     }
 
     public VBox getInstructionBox() {
@@ -43,8 +41,6 @@ public class InstructionBox{
         return rulesText;
 
     }
-
-
 
     private void setLabel(){
         Label rulesLabel = new Label("RULES");

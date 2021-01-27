@@ -7,42 +7,36 @@ import java.util.Random;
 
 public class AiPlayer extends Player {
 
-//    public AiPlayer(){
-//        this.hasTurn = false;
-//    }
-
     @Override
     public boolean shoot(Board board) {
-        Random random = new Random();
-        int x, y;
+        Ship ship;
         Coordinates shotCoordinates;
-
-        //znalezc niezestrzelone miejsce
         do {
-            x = random.nextInt(10);
-            y = random.nextInt(10);
-            shotCoordinates = new Coordinates(x, y);
-        } while (board.isShot.contains(shotCoordinates));
+            shotCoordinates = findAvailableCoordinates(board);
+            ship = checkIfShipIsThere(board, shotCoordinates);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e){
+                System.out.println(e.getMessage());
+            }
+            Rectangle rectangle;
+            if (ship == null){
+                rectangle = new Rectangle(35,35, Color.DARKGRAY);
+            } else {
+                rectangle = new Rectangle(35,35, Color.RED);
+            }
+            System.out.println(shotCoordinates);
+            board.addShotCoordinates(shotCoordinates);
+            board.getGrid().add(rectangle, shotCoordinates.getX(), shotCoordinates.getY());
 
-        //sprawdzic czy jest tam statek
-        Ship ship = checkIfShipIsThere(board, shotCoordinates);
-        Rectangle rectangle;
-        if (ship == null){
-            rectangle = new Rectangle(35,35, Color.DARKGRAY);
-        } else {
-            rectangle = new Rectangle(35,35, Color.RED);
-        }
-        board.addShotCoordinates(shotCoordinates);
-//        System.out.println(shotCoordinates);
-        board.getGrid().add(rectangle, shotCoordinates.getX(), shotCoordinates.getY());
+            if (ship != null){
+                ship.updateShipState(shotCoordinates);
+            }
 
-        //zaktualizowac stan statku
-        if (ship != null){
-            ship.updateShipState(shotCoordinates);
-        }
+        } while (ship != null);
+        System.out.println();
 
-
-       return ship == null;
+       return true;
     }
 
         private Ship checkIfShipIsThere(Board board, Coordinates c){
@@ -53,5 +47,19 @@ public class AiPlayer extends Player {
             }
             return null;
     }
+
+    private Coordinates findAvailableCoordinates(Board board){
+        Random random = new Random();
+        int x,y;
+        Coordinates shot;
+        do {
+            x = random.nextInt(10);
+            y = random.nextInt(10);
+            shot = new Coordinates(x, y);
+        } while (board.isShot.contains(shot));
+
+        return shot;
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package com.kodilla.battleships;
 
-import java.util.Random;
-
 public class Coordinates {
 
     private final int x;

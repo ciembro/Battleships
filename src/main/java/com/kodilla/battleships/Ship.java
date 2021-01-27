@@ -44,12 +44,6 @@ public class Ship {
         }
     }
 
-    private void printShipState(){
-        for (Map.Entry<Coordinates, Boolean> entry : mapOfShotCoordinates.entrySet()){
-            System.out.print(entry.getKey());
-        }
-    }
-
     public void updateShipState(Coordinates shotCoordinates){
         mapOfShotCoordinates.replace(shotCoordinates, true);   // = this place is shot
     }
@@ -72,7 +66,6 @@ public class Ship {
     }
 
     public Coordinates getInitCoordinates() {
-
         return initCoordinates;
     }
 

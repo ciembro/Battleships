@@ -18,6 +18,9 @@ public class Coordinates {
         return y;
     }
 
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,6 +31,7 @@ public class Coordinates {
         if (getX() != that.getX()) return false;
         return getY() == that.getY();
     }
+
 
     @Override
     public int hashCode() {

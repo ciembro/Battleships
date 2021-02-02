@@ -2,15 +2,16 @@ package com.kodilla.battleships;
 
 import javafx.scene.control.Button;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class AiBoard extends Board{
    private final Map<Coordinates, Button> mapOfButtons = new HashMap<>();
+   private final List<Ship> shipList;
 
     public AiBoard(){
         super();
-        super.putShipsOnBoard();
         grid.setStyle("-fx-background-color: #13acd6;");
 
         for (int x = 0; x < 10; x++) {
@@ -26,9 +27,15 @@ public class AiBoard extends Board{
                 grid.add(button, x, y);
             }
         }
+        ShipLocator shipLocator = new ShipLocator();
+        this.shipList = shipLocator.getShipList();
     }
 
     public Map<Coordinates, Button> getMapOfButtons() {
         return mapOfButtons;
+    }
+
+    public List<Ship> getShipList() {
+        return shipList;
     }
 }

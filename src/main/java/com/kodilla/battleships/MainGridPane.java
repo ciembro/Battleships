@@ -1,24 +1,19 @@
 package com.kodilla.battleships;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainGridPane {
     private final GridPane mainGridPane;
-    private Button createNewGameButton;
-    private Button enemyTurnButton;
-    private Font buttonFont;
-    InstructionBox instructionBox;
 
     public MainGridPane(){
         Image mainImage = new Image("file:src\\main\\resources\\blue.jpg");
@@ -36,7 +31,6 @@ public class MainGridPane {
         mainGridPane.setPadding(new Insets(20,20,20,20));
         mainGridPane.setVgap(8);
         mainGridPane.setHgap(50);
-        setButtonFont();
 
         Font font = new Font("Arial", 16);
         Label playerLabel = new Label("YOUR BOARD");
@@ -50,113 +44,38 @@ public class MainGridPane {
 
         mainGridPane.add(playerLabel, 0, 0);
         mainGridPane.add(aiLabel, 0, 2);
-        mainGridPane.add(infoHBox(), 1,3);
+
+        ButtonVBox buttonVBox = new ButtonVBox();
+        mainGridPane.add(buttonVBox.getVBox(), 1,1);
     }
 
-    private void setButtonFont(){
-        buttonFont = new Font("Arial", 20);
-    }
     public GridPane getGridPane() {
         return mainGridPane;
     }
 
-    public HBox infoHBox(){
-        HBox hBox = new HBox();
-        hBox.setSpacing(15);
-        VBox buttonBox = createButtonBox();
-
-        hBox.getChildren().addAll(buttonBox);
-
-        return hBox;
-    }
-
-    private VBox createButtonBox(){
-        VBox buttonBox = new VBox();
-        buttonBox.setSpacing(15);
-
-        createNewGameButton = createStartNewGameButton();
-        enemyTurnButton = createEnemyTurnButton();
-        Button rulesButton = createRulesButton();
-        rulesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                createRulesWindow();
-            }
-        });
-        buttonBox.getChildren().addAll(createNewGameButton, rulesButton, enemyTurnButton);
-
-        return buttonBox;
-    }
-
-    public static void showWinnerScreen(boolean humanWon){
+    public static void showWinnerScreen(boolean humanWon, int moves){
         Stage winnerWindow = new Stage();
         GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
         grid.setStyle("-fx-background-color: #13acd6; " +
                 "-fx-border-color: #000000;");
-        Label label = new Label();
-        label.setTextFill(Color.BLACK);
+        Text text = new Text();
+        text.setStyle("-fx-background-color: #13acd6; ");
+        text.setFont(new Font("Arial", 14));
 
-        label.setPadding(new Insets(20,20,40,20));
+
         if (humanWon){
-            label.setFont(new Font("Arial", 14));
-            label.setText("GAME OVER\nCongratulations, you win!!!");
+            text.setText("Congratulations, you win in " + moves + " moves" );
         } else {
-            label.setFont(new Font("Arial", 24));
-            label.setText("GAME OVER\nYou lost ;<");
+            text.setText("You lost ;< Enemy won in " + moves + " moves" );
         }
-        grid.add(label,0,0);
+        grid.setAlignment(Pos.CENTER);
+        grid.add(text,0,0);
         Scene scene = new Scene(grid, 300, 100);
 
+        winnerWindow.setTitle("GAME OVER");
         winnerWindow.setScene(scene);
         winnerWindow.show();
     }
 
-    private void createRulesWindow(){
-        Stage rulesWindow = new Stage();
-        instructionBox = new InstructionBox();
-        Scene scene = new Scene(instructionBox.getInstructionBox(), 400,500, Color.DARKGRAY);
-
-        rulesWindow.setTitle("Rules");
-        rulesWindow.setScene(scene);
-        rulesWindow.show();
-    }
-
-    private Button createStartNewGameButton() {
-        Button startNewGameButton = new Button("Start a new game");
-        startNewGameButton.setFont(buttonFont);
-        Image startNewGameImage = new Image("file:src\\main\\resources\\ship.png");
-
-        startNewGameButton.setGraphic(new ImageView(startNewGameImage));
-        startNewGameButton.setMinSize(300, 75);
-        startNewGameButton.setMaxSize(300, 75);
-
-        return startNewGameButton;
-    }
-
-    private Button createEnemyTurnButton(){
-        Button enemyMove = new Button("Start enemy's turn");
-        enemyMove.setFont(buttonFont);
-        enemyMove.setMinSize(300, 75);
-        enemyMove.setMaxSize(300, 75);
-        Image shootImage = new Image("file:src\\main\\resources\\shoot.png");
-        enemyMove.setGraphic(new ImageView(shootImage));
-
-        return enemyMove;
-    }
-
-    private Button createRulesButton(){
-        Button rulesButton = new Button("Rules");
-        rulesButton.setFont(buttonFont);
-        rulesButton.setMinSize(300, 75);
-        rulesButton.setMaxSize(300, 75);
-        return rulesButton;
-    }
-
-    public Button getCreateNewGameButton() {
-        return createNewGameButton;
-    }
-
-    public Button getEnemyTurnButton() {
-        return enemyTurnButton;
-    }
 }

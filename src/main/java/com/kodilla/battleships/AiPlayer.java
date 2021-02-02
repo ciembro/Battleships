@@ -7,18 +7,21 @@ import java.util.Random;
 
 public class AiPlayer extends Player {
 
+    public AiPlayer(){
+        this.name = "ai";
+    }
+
     @Override
     public boolean shoot(Board board) {
+        HumanBoard humanBoard = (HumanBoard) board;
         Ship ship;
         Coordinates shotCoordinates;
         do {
-            shotCoordinates = findAvailableCoordinates(board);
-            ship = checkIfShipIsThere(board, shotCoordinates);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e){
-                System.out.println(e.getMessage());
-            }
+            numOfMoves++;
+            shotCoordinates = findAvailableCoordinates(humanBoard);
+            ship = checkIfShipIsThere(humanBoard, shotCoordinates);
+
+
             Rectangle rectangle;
             if (ship == null){
                 rectangle = new Rectangle(35,35, Color.DARKGRAY);
@@ -39,7 +42,7 @@ public class AiPlayer extends Player {
        return true;
     }
 
-        private Ship checkIfShipIsThere(Board board, Coordinates c){
+        private Ship checkIfShipIsThere(HumanBoard board, Coordinates c){
             for (Ship ship : board.getShipList()){
                 if (ship.getShipCoordinatesList().contains(c)){
                     return ship;
@@ -48,7 +51,7 @@ public class AiPlayer extends Player {
             return null;
     }
 
-    private Coordinates findAvailableCoordinates(Board board){
+    private Coordinates findAvailableCoordinates(HumanBoard board){
         Random random = new Random();
         int x,y;
         Coordinates shot;

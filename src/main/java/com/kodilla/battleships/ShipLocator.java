@@ -4,44 +4,27 @@ import java.util.*;
 
 public class ShipLocator {
     private Set<Coordinates> setOfTakenPositions;
-    private List<Ship> shipList;
+    private final List<Ship> shipList;
 
-    public void placeShipsOnBoard() {
-        placeShips();
-        boolean isOk;
-        do {
-            isOk = placeShips();
-        }while (!isOk);
+    public ShipLocator(){
+        this.shipList = placeShipsOnBoard();
     }
 
-    private boolean placeShips(){
+    private List<Ship> placeShipsOnBoard(){
         setOfTakenPositions = new HashSet<>();
-        shipList = new ArrayList<>();
-        List<Integer> shipSizes = new ArrayList<>();
-        shipSizes.add(4);
-        shipSizes.add(3);
-        shipSizes.add(3);
-        shipSizes.add(2);
-        shipSizes.add(2);
-        shipSizes.add(2);
-        shipSizes.add(1);
-        shipSizes.add(1);
-        shipSizes.add(1);
-        shipSizes.add(1);
-        for (Integer size : shipSizes) {
+        List<Ship> ships = new ArrayList<>();
+        for (Integer size : Game.getShipSizes()) {
             Ship ship = new Ship(size);
             do {
-                ship.placeShip();
-            } while (!checkIfPositionAvailable(ship.getShipCoordinatesList()));
-            shipList.add(ship);
-            updateAvailability(ship);
-            if (shipList.size() <= shipSizes.size() && setOfTakenPositions.size() > 85){
-                return false;
-            }
+                do {
+                    ship.placeShip();
+                } while (!checkIfPositionAvailable(ship.getShipCoordinatesList()));
+                ships.add(ship);
+                updateAvailability(ship);
+            } while (ships.size() <= Game.getShipSizes().size() && setOfTakenPositions.size() > 85);
         }
-        return true;
+        return ships;
     }
-
 
     private void updateAvailability(Ship ship){
         int xInit, yInit;
@@ -72,6 +55,7 @@ public class ShipLocator {
     }
 
     private void updateSetOfTakenPositions(int x, int y){
+
         setOfTakenPositions.add(new Coordinates(x,y));
     }
 
@@ -88,6 +72,4 @@ public class ShipLocator {
         return shipList;
     }
 
-    public static void main(String[] args) {
-    }
 }

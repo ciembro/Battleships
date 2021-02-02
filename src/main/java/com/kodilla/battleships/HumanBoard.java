@@ -1,24 +1,24 @@
 package com.kodilla.battleships;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class HumanBoard extends Board{
 
+    private List<Ship> shipList = new ArrayList<>();
+
     public HumanBoard(){
         super();
-        super.putShipsOnBoard();
         grid.setStyle("-fx-background-color: #13acd6; -fx-border-color: #000000;");
         grid.setGridLinesVisible(true);
-
-        for (Ship ship : shipList){
-            for (Coordinates c : ship.getShipCoordinatesList()){
-                Rectangle rectangle = new Rectangle(35,35, Color.BLACK);
-                grid.add(rectangle, c.getX(), c.getY());
-            }
-        }
     }
 
+    public List<Ship> getShipList() {
+        return shipList;
+    }
+
+    public void setShipList(List<Ship> shipList){
+        this.shipList = shipList;
+    }
 }
 

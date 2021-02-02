@@ -1,18 +1,13 @@
 package com.kodilla.battleships;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-
 import java.util.*;
 
 
 public abstract class Board {
     protected Set<Coordinates> isShot = new HashSet<>();
-    protected List<Ship> shipList;
     protected GridPane grid = new GridPane();
 
 
@@ -24,11 +19,6 @@ public abstract class Board {
         grid.getRowConstraints().addAll(rowConstraints);
     }
 
-    public void putShipsOnBoard(){
-        ShipLocator shipLocator = new ShipLocator();
-        shipLocator.placeShipsOnBoard();
-        this.shipList = shipLocator.getShipList();
-    }
 
     private ColumnConstraints[] createColumns(int numOfColumns) {
         ColumnConstraints[] columnConstraints = new ColumnConstraints[numOfColumns];
@@ -45,14 +35,6 @@ public abstract class Board {
         }
         return rowConstraints;
     }
-
-    public Label setLabel(String text){
-        Label label = new Label(text);
-        label.setTextFill(Color.LIGHTBLUE);
-        label.setFont(new Font("Arial", 24));
-        return label;
-    }
-
     public GridPane getGrid() {
         return grid;
     }
@@ -65,7 +47,4 @@ public abstract class Board {
         isShot.add(coordinates);
     }
 
-    public List<Ship> getShipList() {
-        return shipList;
-    }
 }

@@ -12,7 +12,7 @@ public class HumanPlayer extends Player {
     HumanBoard humanBoard;
 
     public HumanPlayer(AiPlayer aiPlayer, HumanBoard humanBoard){
-        this.name = "human";
+        this.name = "player";
         this.aiPlayer = aiPlayer;
         this.humanBoard = humanBoard;
         this.hasTurn = true;
@@ -34,18 +34,24 @@ public class HumanPlayer extends Player {
                                     hasTurn = false;
 
                                     aiPlayer.shoot(humanBoard);
-                                    if (aiPlayer.checkIfPlayerWon(humanBoard)) {
+                                    if (aiPlayer.checkIfGameFinished(humanBoard)) {
                                         MainGridPane.showWinnerScreen(false, aiPlayer.getNumOfMoves());
+                                        disableAllButtons(aiBoard);
                                     }
                                     setHasTurn(true);
 
                                 } else {
                                     markAsShot(button.getValue());
                                     ship.updateShipState(button.getKey());
+                                    if (ship.checkIfShipIsSunk()){
+                                        MainGridPane.showSunkShipScreen();
+
+                                    }
                                     hasTurn = true;
                                 }
                                 button.getValue().setDisable(true);
-                                if (checkIfPlayerWon(board)) {
+                                if (checkIfGameFinished(board)) {
+                                    disableAllButtons(aiBoard);
                                     MainGridPane.showWinnerScreen(true, numOfMoves);
                                 }
                             }
@@ -85,6 +91,13 @@ public class HumanPlayer extends Player {
 
     public HumanBoard getHumanBoard(){
         return humanBoard;
+    }
+
+    private void disableAllButtons(Board board) {
+        AiBoard aiBoard = (AiBoard) board;
+        for (Map.Entry<Coordinates, Button> button : aiBoard.getMapOfButtons().entrySet()) {
+            button.getValue().setDisable(true);
+        }
     }
 
 

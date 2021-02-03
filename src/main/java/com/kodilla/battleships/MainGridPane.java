@@ -3,13 +3,14 @@ package com.kodilla.battleships;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainGridPane {
@@ -55,27 +56,49 @@ public class MainGridPane {
 
     public static void showWinnerScreen(boolean humanWon, int moves){
         Stage winnerWindow = new Stage();
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10,10,10,10));
-        grid.setStyle("-fx-background-color: #13acd6; " +
-                "-fx-border-color: #000000;");
-        Text text = new Text();
-        text.setStyle("-fx-background-color: #13acd6; ");
-        text.setFont(new Font("Arial", 14));
-
-
+        winnerWindow.initModality(Modality.APPLICATION_MODAL);
+        String textToShow;
         if (humanWon){
-            text.setText("Congratulations, you win in " + moves + " moves" );
+            textToShow = "Congratulations, you win in " + moves + " moves" ;
         } else {
-            text.setText("You lost ;< Enemy won in " + moves + " moves" );
+            textToShow = "You lost ;< Enemy won in " + moves + " moves" ;
         }
-        grid.setAlignment(Pos.CENTER);
-        grid.add(text,0,0);
+        GridPane grid = createGridPane(textToShow);
         Scene scene = new Scene(grid, 300, 100);
 
         winnerWindow.setTitle("GAME OVER");
         winnerWindow.setScene(scene);
+        winnerWindow.setAlwaysOnTop(true);
         winnerWindow.show();
+    }
+
+    public static void showSunkShipScreen(){
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Button button = new Button("You sunk enemy's ship");
+        button.setOnAction(e->stage.close());
+
+        Scene scene = new Scene(button, 300,100);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static GridPane createGridPane(String textToShow){
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
+        grid.setStyle("-fx-background-color: #13acd6; " +
+                "-fx-border-color: #000000;");
+        grid.setAlignment(Pos.CENTER);
+
+        Text text = createTextToShow(textToShow);
+        grid.add(text,0,0);
+        return grid;
+    }
+    private static Text createTextToShow(String textToShow){
+        Text text = new Text(textToShow);
+        text.setStyle("-fx-background-color: #13acd6; ");
+        text.setFont(new Font("Arial", 14));
+        return text;
     }
 
 }

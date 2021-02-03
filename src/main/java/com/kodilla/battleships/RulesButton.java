@@ -18,13 +18,7 @@ public class RulesButton extends GameButton {
 
     @Override
     public void handleClick(){
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                createRulesWindow();
-            }
-        });
+        button.setOnMouseClicked(e -> createRulesWindow());
     }
 
     private void createRulesWindow(){

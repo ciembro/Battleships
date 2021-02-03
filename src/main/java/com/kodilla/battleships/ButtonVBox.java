@@ -6,7 +6,6 @@ public class ButtonVBox {
     VBox buttonBox = new VBox();
     private final NewGameButton newGameButton;
 
-
     public ButtonVBox(){
         buttonBox.setSpacing(15);
         newGameButton = new NewGameButton();
@@ -15,17 +14,6 @@ public class ButtonVBox {
         buttonBox.getChildren().addAll(newGameButton.getButton(), rulesButton.getButton());
 
     }
-
-
-
-    public NewGameButton getNewGameButton() {
-        return newGameButton;
-    }
-
-//    public RulesButton getRulesButton() {
-//        return rulesButton;
-//    }
-
     public VBox getVBox() {
         return buttonBox;
     }

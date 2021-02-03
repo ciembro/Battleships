@@ -7,7 +7,6 @@ public class Ship {
     private final boolean isHorizontal;
     private Coordinates initCoordinates;
     private Map<Coordinates, Boolean> mapOfShotCoordinates = new HashMap<>();
-    private int id;
     private Random random = new Random();
 
     public Ship(int size){
@@ -19,7 +18,6 @@ public class Ship {
         this.size = size;
         this.initCoordinates = initCoordinates;
         this.isHorizontal = isHorizontal;
-        id = setId();
     }
 
     private Coordinates findShipCoordinates(){
@@ -51,7 +49,6 @@ public class Ship {
         int xInit = initCoordinates.getX();
         int yInit = initCoordinates.getY();
         createMapOfShotCoordinates(isHorizontal, xInit, yInit);
-        id = setId();
     }
 
     private void createMapOfShotCoordinates(boolean isHorizontal, int xInit, int yInit){
@@ -99,13 +96,6 @@ public class Ship {
         if (isHorizontal() != ship.isHorizontal()) return false;
         if (!getInitCoordinates().equals(ship.getInitCoordinates())) return false;
         return mapOfShotCoordinates.equals(ship.mapOfShotCoordinates);
-    }
-
-    public int setId() {
-        int result = getSize();
-        result = 31 * result + (isHorizontal() ? 1 : 0);
-        result = 31 * result + getInitCoordinates().hashCode();
-        return result;
     }
 
 }

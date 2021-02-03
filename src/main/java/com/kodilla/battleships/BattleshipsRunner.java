@@ -20,7 +20,6 @@ public class BattleshipsRunner extends Application {
     static void startGame(Stage primaryStage) {
         Game game = new Game();
         Scene s = new Scene(game.getMainGrid(), 1200, 800);
-
         primaryStage.setTitle("Battleships");
         primaryStage.setScene(s);
         primaryStage.show();
@@ -28,7 +27,7 @@ public class BattleshipsRunner extends Application {
     }
 
        public static void restart(Stage primaryStage) {
-        startGame(primaryStage);
+            startGame(primaryStage);
         }
 
         private void setPrimaryStage(Stage pStage){

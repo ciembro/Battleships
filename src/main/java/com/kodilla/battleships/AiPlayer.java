@@ -28,7 +28,6 @@ public class AiPlayer extends Player {
             } else {
                 rectangle = new Rectangle(35,35, Color.RED);
             }
-            System.out.println(shotCoordinates);
             board.addShotCoordinates(shotCoordinates);
             board.getGrid().add(rectangle, shotCoordinates.getX(), shotCoordinates.getY());
 
@@ -37,18 +36,17 @@ public class AiPlayer extends Player {
             }
 
         } while (ship != null);
-        System.out.println();
 
        return true;
     }
 
-        private Ship checkIfShipIsThere(HumanBoard board, Coordinates c){
-            for (Ship ship : board.getShipList()){
-                if (ship.getShipCoordinatesList().contains(c)){
-                    return ship;
-                }
+    private Ship checkIfShipIsThere(HumanBoard board, Coordinates c){
+        for (Ship ship : board.getShipList()){
+            if (ship.getShipCoordinatesList().contains(c)){
+                return ship;
             }
-            return null;
+        }
+        return null;
     }
 
     private Coordinates findAvailableCoordinates(HumanBoard board){
@@ -63,6 +61,4 @@ public class AiPlayer extends Player {
 
         return shot;
     }
-
-
 }

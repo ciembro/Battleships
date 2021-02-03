@@ -21,10 +21,11 @@ public class HumanShipLocatorWindow {
     private final Stage mainWindow = new Stage();
     private final VBox vBox = new VBox();
     private final Scene scene;
+    HumanPlayer humanPlayer;
     private final HumanShipLocator humanShipLocator;
 
     public HumanShipLocatorWindow(HumanPlayer hPlayer){
-        HumanPlayer humanPlayer = hPlayer;
+        humanPlayer = hPlayer;
         humanShipLocator = new HumanShipLocator(humanPlayer.getHumanBoard());
         setVBox();
         setVBoxProperties();
@@ -33,8 +34,8 @@ public class HumanShipLocatorWindow {
     }
 
     public void openWindow(){
-        mainWindow.toFront();
         mainWindow.setScene(scene);
+        mainWindow.setAlwaysOnTop(true);
         mainWindow.show();
     }
 
@@ -50,8 +51,7 @@ public class HumanShipLocatorWindow {
         name.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String userName;
-                userName = name.getText();
+               humanPlayer.setName(name.getText());
                 name.setOpacity(1);
                 name.setDisable(true);
             }
@@ -75,7 +75,7 @@ public class HumanShipLocatorWindow {
         return label;
     }
 
-    private Button createAcceptAllButton(){
+    private void createAcceptAllButton(){
         Button button = new Button("Accept all");
         button.setMinSize(100,25);
         button.setMaxSize(100,25);
@@ -92,9 +92,8 @@ public class HumanShipLocatorWindow {
             }
         });
         vBox.getChildren().add(button);
-        return button;
     }
-    private Button createDeleteAllButton(){
+    private void createDeleteAllButton(){
         Button button = new Button("Delete all");
 
         button.setMinSize(100,25);
@@ -108,7 +107,24 @@ public class HumanShipLocatorWindow {
             }
         });
         vBox.getChildren().add(button);
-        return button;
+    }
+
+    private void createPlaceRandomlyButton(){
+        Button button = new Button("Place randomly");
+
+        button.setMinSize(100,25);
+        button.setMaxSize(100,25);
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                humanShipLocator.placeShipsRandomly();
+                humanShipLocator.getHumanBoard().setShipList(humanShipLocator.getShipList());
+                mainWindow.close();
+
+            }
+        });
+        vBox.getChildren().add(button);
     }
 
     private void setVBox(){
@@ -118,6 +134,7 @@ public class HumanShipLocatorWindow {
         createCoordinatesFields();
         createAcceptAllButton();
         createDeleteAllButton();
+        createPlaceRandomlyButton();
     }
 
 }

@@ -17,7 +17,6 @@ public class Game {
     private final HumanBoard humanBoard;
     private final AiPlayer aiPlayer;
     private final AiBoard aiBoard;
-    private final HumanShipLocatorWindow humanShipLocatorWindow;
     private final static List<Integer> shipSizes = new ArrayList<>(Arrays.asList(4,3,3,2,2,2,1,1,1,1));
 
     public Game(){
@@ -26,8 +25,7 @@ public class Game {
         aiBoard = new AiBoard();
         humanBoard = new HumanBoard();
         humanPlayer = new HumanPlayer(aiPlayer, humanBoard);
-        humanShipLocatorWindow = new HumanShipLocatorWindow(humanPlayer);
-
+        HumanShipLocatorWindow humanShipLocatorWindow = new HumanShipLocatorWindow(humanPlayer);
         setMainGridPane();
         play();
     }
@@ -39,6 +37,7 @@ public class Game {
     }
 
     public void play(){
+
         humanPlayer.shoot(aiBoard);
     }
 
@@ -54,7 +53,7 @@ public class Game {
     public static void printErrorWindow(){
         Stage errorWindow = new Stage();
         GridPane gridPane = new GridPane();
-        Label label = new Label("Please place all ships on borad");
+        Label label = new Label("Please place all ships on board");
         label.setFont(new Font("Arial", 14));
         gridPane.setPadding(new Insets(20,20,20,20));
         gridPane.setHgap(10);
@@ -68,7 +67,4 @@ public class Game {
         errorWindow.show();
     }
 
-    public void openNewGameWindow(){
-        humanShipLocatorWindow.openWindow();
-    }
 }

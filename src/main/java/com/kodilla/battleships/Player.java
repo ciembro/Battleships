@@ -7,7 +7,7 @@ public abstract class Player {
     protected String name;
     protected int numOfMoves = 0;
 
-    public boolean checkIfPlayerWon(Board board){
+    public boolean checkIfGameFinished(Board board){
         if (board instanceof HumanBoard) {
             HumanBoard humanBoard = (HumanBoard) board;
             for (Ship ship : humanBoard.getShipList()){
@@ -29,10 +29,6 @@ public abstract class Player {
         this.hasTurn = hasTurn;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -40,4 +36,5 @@ public abstract class Player {
     public int getNumOfMoves(){
         return numOfMoves;
     }
+
 }

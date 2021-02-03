@@ -10,7 +10,6 @@ public abstract class Board {
     protected Set<Coordinates> isShot = new HashSet<>();
     protected GridPane grid = new GridPane();
 
-
     public Board(){
         ColumnConstraints[] columnConstraints = createColumns(10);
         grid.getColumnConstraints().addAll(columnConstraints);
@@ -18,7 +17,6 @@ public abstract class Board {
         RowConstraints[] rowConstraints = createRows(10);
         grid.getRowConstraints().addAll(rowConstraints);
     }
-
 
     private ColumnConstraints[] createColumns(int numOfColumns) {
         ColumnConstraints[] columnConstraints = new ColumnConstraints[numOfColumns];

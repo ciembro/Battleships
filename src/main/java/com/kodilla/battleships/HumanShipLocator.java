@@ -113,6 +113,14 @@ public class HumanShipLocator {
         return true;
     }
 
+    public void placeShipsRandomly(){
+        ShipLocator shipLocator = new ShipLocator();
+        shipList = shipLocator.getShipList();
+        for (Ship ship : shipList){
+            drawShipOnBoard(ship);
+        }
+    }
+
     public List<Ship> getShipList() {
         return shipList;
     }

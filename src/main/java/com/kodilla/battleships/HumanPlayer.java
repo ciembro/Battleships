@@ -3,6 +3,7 @@ package com.kodilla.battleships;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class HumanPlayer extends Player {
                                     ship.updateShipState(button.getKey());
                                     if (ship.checkIfShipIsSunk()){
                                         MainGridPane.showSunkShipScreen();
-
+                                        markShipSurroundings(ship, aiBoard);
                                     }
                                     hasTurn = true;
                                 }
@@ -78,6 +79,8 @@ public class HumanPlayer extends Player {
     }
 
     private void markAsEmpty(Button button){
+        button.setMaxSize(35,35);
+        button.setMinSize(35,35);
         button.setStyle("-fx-background-color: #A9A9A9; " +
                 "-fx-border-color: #000000; -fx-border-width: 1px; " +
                 "-fx-opacity: 1");
@@ -87,6 +90,35 @@ public class HumanPlayer extends Player {
         button.setStyle("-fx-background-color: #FF0000; " +
                 "-fx-border-color: #000000; -fx-border-width: 1px;" +
                 "-fx-opacity: 1");
+    }
+
+    private void markShipSurroundings(Ship ship, AiBoard aiBoard){
+        int xInit = ship.getInitCoordinates().getX();
+        int yInit = ship.getInitCoordinates().getY();
+        if (ship.isHorizontal()) {
+            for (int x = xInit - 1; x <= xInit + ship.getSize(); x++){
+                for (int y = yInit - 1 ; y <= yInit + 1; y++){
+                    if (x >= 0 && x <= 9 && y >= 0 && y <= 9 && !ship.getShipCoordinatesList().contains(new Coordinates(x,y))){
+                        Button button = new Button();
+                        markAsEmpty(button);
+                        aiBoard.getMapOfButtons().replace(new Coordinates(x,y), button);
+                        aiBoard.getGrid().add(button, x, y);
+
+                    }
+                }
+            }
+        } else {
+            for (int x = xInit - 1; x <= xInit + 1; x++){
+                for (int y = yInit - 1; y <= yInit + ship.getSize(); y++){
+                    if (x >= 0 && x <= 9 && y >= 0 && y <= 9 && !ship.getShipCoordinatesList().contains(new Coordinates(x,y))){
+                        Button button = new Button();
+                        markAsEmpty(button);
+                        aiBoard.getMapOfButtons().replace(new Coordinates(x,y), button);
+                        aiBoard.getGrid().add(button, x, y);
+                    }
+                }
+            }
+        }
     }
 
     public HumanBoard getHumanBoard(){

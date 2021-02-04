@@ -35,6 +35,8 @@ public class AiBoard extends Board{
         return mapOfButtons;
     }
 
+
+
     public List<Ship> getShipList() {
         return shipList;
     }
